@@ -3,12 +3,14 @@ using Application.UseCases.AddCustomer;
 using Domain.Contracts.repositories.AddCustomer;
 using Domain.Contracts.UseCases.AddCustomer;
 using FluentValidation;
+using InfraRepository.DbContext;
 using InfraRepository.Repositories.AddCustomer;
 using WebApi.Models.AddCustomer;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddSingleton<IAddCustomerRepository, AddCustomerRepository>();
+builder.Services.AddSingleton<IDbContext, DbContext>();
+builder.Services.AddScoped<IAddCustomerRepository, AddCustomerRepository>();
 builder.Services.AddScoped<IAddCustomerUseCase, AddCustomerUseCase>();
 builder.Services.AddTransient<IValidator<AddCustomerInput>, AddCustomerInputValidator>();
 
